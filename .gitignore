@@ -5,6 +5,7 @@
 *.aux
 *.zip
 data/
+*.html
 
 # History files
 .Rhistory
