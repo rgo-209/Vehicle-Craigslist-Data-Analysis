@@ -1,0 +1,60 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+--- 
+
+```{r linreg}
+
+library(caret)
+#vehicleData[1000]
+
+#unique(vehicleData$fuel)
+
+linRegData <- subset(vehicleData, 
+                       select = c(price, year, manufacturer, odometer, condition, fuel, transmission, drive, size, type, paint_color))
+
+#Factor the data from
+linRegData$manufacturer <-linRegData$manufacturer<-as.factor(linRegData$manufacturer)
+linRegData$condition <-linRegData$condition<-as.factor(linRegData$condition)
+linRegData$fuel <-linRegData$fuel<-as.factor(linRegData$fuel)
+linRegData$transmission <-linRegData$transmission<-as.factor(linRegData$transmission)
+linRegData$drive <-linRegData$drive<-as.factor(linRegData$drive)
+linRegData$size <-linRegData$size<-as.factor(linRegData$size)
+linRegData$type <-linRegData$type<-as.factor(linRegData$type)
+linRegData$paint_color <-linRegData$paint_color<-as.factor(linRegData$paint_color)
+
+
+#linRegData[c(1000:1005)]
+
+```
+
+```{r lin_model}
+set.seed(1)
+
+train_entries <- sort(sample(nrow(linRegData), nrow(linRegData) * 0.8))
+
+train_data = linRegData[train_entries,]
+test_data = linRegData[-train_entries,]
+dim(train_data)
+dim(test_data)
+
+
+
+linRegModelPrice <- lm(formula = price ~ 
+                  year,
+                data = train_data)
+
+summary(linRegModelPrice)
+
+RSS_linear<- c(crossprod(linRegModelPrice$residuals)) ## To calculate RSS
+MSE <- RSS_linear / length(linRegModelPrice$residuals)## To calculate MSE
+RMSE <- sqrt(MSE) ## TO calculate RMSE
+
+predictions <- linRegModelPrice %>% predict(test_data) ## Prediction on Linear Regression on testing data using training data 
+
+predictions
+R2(predictions, test_data$price) ## R square calculations for Linear Regression.
+
+
+```

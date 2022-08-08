@@ -1,0 +1,88 @@
+---
+title: 'Data Driven Knowledge Discovery Final Exam - Summer 2022'
+author: "Rahul Golhar"
+date: "8/6/2022"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    fig_caption: yes
+  word_document: default
+  html_document:
+    df_print: paged
+fig_caption: yes
+tab_caption: yes
+header-includes:
+ \usepackage{float}
+ \floatplacement{figure}{H}
+subtitle: Analysis of Craigslist Vehicle Postings Data
+---
+
+\pagenumbering{gobble} 
+\newpage              
+\pagenumbering{arabic}
+
+
+# Introduction
+This is the document for final examination submitted by Rahul Golhar for the course ISTE 780 - Data Driven Knowledge Discovery taught by Prof. Mick McQuaid in the Summer 2022 term at Rochester Institute of Technology.
+
+
+```{r setup, include=FALSE}
+
+#library( doParallel )
+library(tidyverse)
+library(dtplyr)
+library(arrow)
+library(stringr)
+library( kableExtra )
+#library(glmnet)
+#library(caret)
+#library(randomForest)
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 30), 
+                      tidy = TRUE, echo = FALSE,warning = FALSE, message = FALSE,dev = "cairo_pdf" )
+#registerDoParallel(cl=8,cores=4)
+```
+
+```{r readData}
+metadataFilename = "./data/vehicles.dat"
+vehicledataFilename = "./data/vehicles.csv"
+
+metadata <- data.table::fread(metadataFilename, colClasses = c("integer", "character", "character"))
+vehicleData <- data.table::fread(vehicledataFilename, header = TRUE, 
+    colClasses = c(
+        "integer", "character", "character","character",
+        "integer", "integer", "character", "character",
+        "character", "integer", "character", "double",
+        "character", "character", "character","character",
+        "character", "character", "character","character",
+        "character", "character", "character","double",
+        "double", "character"), na.strings = c("", "NA"))
+```
+# Data Description
+```{r dataDesc, child="dataDescription.Rmd"}
+```
+
+# Data Pre-processing
+```{r dataPreProcess, child="dataPreProcessing.Rmd"}
+```
+
+# Supervised Learning
+
+## Linear Regression
+```{r linearRegression, child="./algorithms/linearRegression.Rmd"}
+```
+
+## Logistic Regression
+```{r logisticRegression, child="./algorithms/logisticRegression.Rmd"}
+```
+
+# Unsupervised Learning
+
+## K Means Clustering
+```{r kMeansClustering, child="./algorithms/kMeansClustering.Rmd"}
+```
+
+## Hierarchical clustering
+```{r hierarchicalClustering, child="./algorithms/hierarchicalClustering.Rmd"}
+```

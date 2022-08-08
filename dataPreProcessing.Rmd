@@ -1,0 +1,27 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+The data provided needs some cleaning up like removing NaN's, deleting the columns added by mistake and finally having the data ready for applying algorithms.
+
+```{r dataPreProcess}
+
+vehicleData <- subset(vehicleData, select=-county)
+prev_length = nrow(vehicleData)
+vehicleData <- vehicleData[rowSums(is.na(vehicleData)) == 0,]
+new_length = nrow(vehicleData)
+```
+
+As we saw in table \ref{tab:dataDesc}, there was a column named "county" which we need to remove since it was mistakenly added. Also, initially there are `r toString(prev_length)` rows and after dropping NaNs we now have `r toString(new_length)` i.e. we removed `r toString(prev_length-new_length)` entries.
+
+```{r omitColumns}
+
+remove_cols = c("url", "region_url", "description", "image_url")
+
+vehicleData <- subset(vehicleData, 
+                       select = -c(url, region_url, description, image_url))
+```
+
+Since not all columns would be useful for Machine Learning purposes, We will only be using a subset of this data for our analysis and the columns that we will be removing are: `r toString(remove_cols)` leaving us with the following columns: `r toString(colnames(vehicleData))`.

@@ -1,0 +1,33 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+The data provided is about craigslist postings of vehicles and each field is described in the table \ref{tab:dataDesc}. We can observe that there are various fields which give an instinct of being useful for ML models like entry price, entry year, manufacturer of vehicle, model of vehicle, condition of vehicle, number of cylinders, fuel type, miles traveled by vehicle, transmission of vehicle and more. These are some of the major factors the customers usually tend to look at and decide whether to buy the vehicle or not.
+
+```{r dataDesc, fig.cap="\\label{tab:dataDesc}Description of fields in the raw data" }
+
+#library( knitr )
+suppressMessages(library(kableExtra))
+
+descriptionOfFields <- metadata$V3
+names <- metadata$V2
+dataTypes <- c(
+        "integer", "character", "character","character",
+        "integer", "integer", "character", "character",
+        "character", "integer", "character", "double",
+        "character", "character", "character","character",
+        "character", "character", "character","character",
+        "character", "character", "character","double",
+        "double", "character")
+dataDescTable <- tibble(FIELD=c( names ), DESCRIPTION=c(  descriptionOfFields ), DATATYPE=c(dataTypes))
+
+suppressMessages(
+kable(dataDescTable, booktabs = T, caption = "Description of fields in the raw data") %>%
+  kable_styling(latex_options = c("HOLD_position")) %>%
+  column_spec(1, bold = T, width = "3cm") %>%
+  column_spec(2, width = "5 cm") %>%
+  column_spec(3, width = "3 cm")
+)
+```
