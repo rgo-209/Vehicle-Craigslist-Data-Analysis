@@ -77,11 +77,11 @@ vehicleData <- data.table::fread(vehicledataFilename, header = TRUE,
 ```
 
 # Linear Regression
-```{r linearRegression, child="./algorithms/linearRegression.Rmd"}
+```{r linearRegression, child="linearRegression.Rmd"}
 ```
 
-## Map Visualization
-```{r mapViz, child="./algorithms/mapViz.Rmd"}
+# Map Visualization
+```{r mapViz, child="mapViz.Rmd"}
 ```
 
 <!-- # Unsupervised Learning -->
