@@ -3,3 +3,87 @@ output:
   pdf_document: default
   html_document: default
 ---
+
+Let's have a look at the distribution of different car types in posts across the US. These are the different known car types in the data provided `r unique(vehicleData$type)`.
+
+
+We start with getting the subset of vehicle data consisting of "latitude", "longitude" and "type".
+
+```{r mapViz, echo=TRUE}
+
+lat_long_data <- subset(vehicleData, select= c(lat, long, type))
+
+lat_long_data <- subset(lat_long_data, lat<55 & lat>15 & long<(-50) & long>(-150) )
+```
+
+
+Once we have the data, we define different plots and club them to form multi-plot figures to analyze.
+
+```{r graphing, echo=TRUE}
+
+library(ggplot2)
+library(ggpubr)
+
+p1 <- ggplot(subset(lat_long_data, type == "sedan"),
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Sedan") + xlim(-130, -75) + ylim(20, 55)
+p2 <- ggplot(subset(lat_long_data, type == "coupe"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Coupe") + xlim(-130, -75) + ylim(20, 55)
+p3 <- ggplot(subset(lat_long_data, type == "SUV"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("SUV") + xlim(-130, -75) + ylim(20, 55)
+p4 <- ggplot(subset(lat_long_data, type == "hatchback"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Hatchback") + xlim(-130, -75) + ylim(20, 55)
+p5 <- ggplot(subset(lat_long_data, type == "mini-van"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Mini-Van") + xlim(-130, -75) + ylim(20, 55)
+p6 <- ggplot(subset(lat_long_data, type == "van"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Van") + xlim(-130, -75) + ylim(20, 55)
+p7 <- ggplot(subset(lat_long_data, type == "wagon"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Wagon") + xlim(-130, -75) + ylim(20, 55)
+p8 <- ggplot(subset(lat_long_data, type == "pickup"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Pickup") + xlim(-130, -75) + ylim(20, 55)
+p9 <- ggplot(subset(lat_long_data, type == "convertible"), 
+             aes(x = long, y = lat)) + geom_point() + 
+             ggtitle("Convertible") + xlim(-130, -75) + ylim(20, 55)
+p10 <- ggplot(subset(lat_long_data, type == "offroad"), 
+              aes(x = long, y = lat)) + geom_point() +
+              ggtitle("Offroad") + xlim(-130, -75) + ylim(20, 55)
+p11 <- ggplot(subset(lat_long_data, type == "truck"), 
+              aes(x = long, y = lat)) + geom_point() + 
+              ggtitle("Truck") + xlim(-130, -75) + ylim(20, 55)
+p12 <- ggplot(subset(lat_long_data, type == "bus"), 
+              aes(x = long, y = lat)) + geom_point() + 
+              ggtitle("Bus") + xlim(-130, -75) + ylim(20, 55)
+
+
+# plot sedan, coupe, SUV and hatchback
+ggarrange(p1, p2, p3, p4, ncol = 2, nrow = 2)  %>% ggexport(filename = "./graphs/map1.png")
+
+# plot mini-van, van, wagon and pickup
+ggarrange(p5, p6, p7, p8, ncol = 2, nrow = 2) %>% ggexport(filename = "./graphs/map2.png")
+
+# plot convertible, offroad, truck and bus
+ggarrange(p9, p10, p11, p12, ncol = 2, nrow = 2) %>% ggexport(filename = "./graphs/map3.png")
+```
+
+In the figure \ref{fig:map1}, we compare the distribution of Sedan, Coupe, SUV and Hatchback. It can be observed that there are a high number of posts on the east coast and the west coast compared to the mid-west areas. The reason behind this could possibly be because of the low population in these areas.
+
+```{r map1, out.width="6in", out.height="3in", fig.align = 'center',  fig.cap="\\label{fig:map1}Distribution of Sedan, Coupe, SUV and Hatchback in posts across US"}  
+knitr::include_graphics("./graphs/map1.png", )
+```
+From the figure \ref{fig:map2}, we compare the distribution of Mini-Van, Van, Wagon, and Pickup. It can be observed that there is a high number of posts on the east coast and the west coast compared to the mid-west areas again but the density isn't as much as we had in the case of previous types of vehicles from figure \ref{fig:map1}. The reason for this could be that these aren't very commonly used vehicles. Out of all these 4, pickups have shown to be used more.
+
+```{r map2, out.width="6in", out.height="3in", fig.align = 'center',  fig.cap="\\label{fig:map2}Distribution of Mini-Van, Van, Wagon and Pickup in posts across US"}  
+knitr::include_graphics("./graphs/map2.png", )
+```
+From the figure \ref{fig:map3}, we compare the distribution of Convertible, Offroad, Truck, and Bus. It can be observed that there are very few postings for offroad vehicles and Buses.
+
+```{r map3, out.width="6in", out.height="3in", fig.align = 'center',  fig.cap="\\label{fig:map3}Distribution of Convertible, Offroad, Truck and Bus in posts across US"}  
+knitr::include_graphics("./graphs/map3.png", )
+```

@@ -4,7 +4,7 @@ output:
   html_document: default
 ---
 
-The data provided needs some cleaning up like removing NaN's, deleting the columns added by mistake and finally having the data ready for applying algorithms.
+The data provided needs some cleaning up like removing NaN's, deleting the columns added by mistake, and finally having the data ready for applying algorithms.
 
 ```{r dataPreProcess, echo=TRUE}
 
@@ -43,5 +43,4 @@ new_length = nrow(vehicleData)
 ```
 
 
-As we saw in table \ref{tab:dataDesc}, there was a column named "county" which we need to remove since it was mistakenly added. The next step is to replace all Nan's with "unknown" in columns: "manufacturer", "model", "cylinders", "title_status", "drive", "type", "state", "condition", "paint_color" and "size". The next task is to drop the NaN's from some columns which aren't used in further Machine Learning purposes. We will only be using a subset of this data for our analysis and the columns that we will be removing are: `r toString(remove_cols)` leaving us with the following columns: `r toString(colnames(vehicleData))`. Finally, "de-duplication" operation is performed on the data. So, initially there were `r toString(prev_length)` rows and after performing above operations NaN's we now have `r toString(new_length)` i.e. we removed `r toString(prev_length-new_length)` entries. And we are reamining with following columns: `r toString(colnames(vehicleData))`.
-
+As we saw in table \ref{tab:dataDesc}, there was a column named "county" which we need to remove since it was mistakenly added. The next step is to replace all Nan's with "unknown" in columns: "manufacturer", "model", "cylinders", "title_status", "drive", "type", "state", "condition", "paint_color" and "size". The next task is to drop the NaN's from some columns which aren't used for further Machine Learning purposes. We will only be using a subset of this data for our analysis and the columns that we will be removing are: `r toString(remove_cols)` leaving us with the following columns: `r toString(colnames(vehicleData))`. Finally, "de-duplication" operation is performed on the data. So, initially there were `r toString(prev_length)` rows and after performing above operations NaN's we now have `r toString(new_length)` i.e. we removed `r toString(prev_length-new_length)` entries. And we are remaining with following columns: `r toString(colnames(vehicleData))`.

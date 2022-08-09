@@ -4,7 +4,7 @@ output:
   pdf_document: default
 ---
 
-The data provided is about craigslist postings of vehicles and each field is described in the table \ref{tab:dataDesc}. We can observe that there are various fields which give an instinct of being useful for ML models like entry price, entry year, manufacturer of vehicle, model of vehicle, condition of vehicle, number of cylinders, fuel type, miles traveled by vehicle, transmission of vehicle and more. These are some of the major factors the customers usually tend to look at and decide whether to buy the vehicle or not.
+The data provided is about craigslist postings of vehicles and each field is described in the table \ref{tab:dataDesc}. We can observe that there are various fields that give an instinct of being useful for ML models like entry price, entry year, manufacturer of the vehicle, model of vehicle, condition of the vehicle, number of cylinders, fuel type, miles traveled by vehicle, the transmission of vehicle and more. These are some of the significant factors the customers usually tend to look at and decide whether to buy the vehicle or not.
 
 ```{r dataDesc, fig.cap="\\label{tab:dataDesc}Description of fields in the raw data", echo=TRUE }
 

@@ -1,7 +1,7 @@
 ---
 title: 'Data Driven Knowledge Discovery Final Exam - Summer 2022'
 author: "Rahul Golhar"
-date: "8/6/2022"
+date: "8/9/2022"
 output:
   pdf_document:
     latex_engine: xelatex
@@ -25,23 +25,18 @@ subtitle: Analysis of Craigslist Vehicle Postings Data
 
 
 # Introduction
-This is the document for final examination submitted by Rahul Golhar for the course ISTE 780 - Data Driven Knowledge Discovery taught by Prof. Mick McQuaid in the Summer 2022 term at Rochester Institute of Technology.
+This is the document for the final examination submitted by Rahul Golhar for the course ISTE 780 - Data Driven Knowledge Discovery taught by Prof. Mick McQuaid in the Summer 2022 term at Rochester Institute of Technology.
 
 
 ```{r setup, include=FALSE}
 
-#library( doParallel )
 library(tidyverse)
 library(dtplyr)
 library(arrow)
 library(stringr)
 library( kableExtra )
-#library(glmnet)
-#library(caret)
-#library(randomForest)
 knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 30), 
                       tidy = TRUE, echo = FALSE,warning = FALSE, message = FALSE,dev = "cairo_pdf" )
-#registerDoParallel(cl=8,cores=4)
 ```
 
 We start by reading the data into 2 data frames, one for metadata from file 'vehicles.dat' and one for the actual data from 'vehicles.csv'. Each column is also given a data type while reading.
@@ -76,10 +71,10 @@ vehicleData <- data.table::fread(vehicledataFilename, header = TRUE,
 ```{r dataPreProcess, child="dataPreProcessing.Rmd"}
 ```
 
-# Linear Regression
-```{r linearRegression, child="linearRegression.Rmd"}
+# Data Visualization
+```{r mapViz, child="mapViz.Rmd"}
 ```
 
-# Map Visualization
-```{r mapViz, child="mapViz.Rmd"}
+# Linear Regression
+```{r linearRegression, child="linearRegression.Rmd"}
 ```
