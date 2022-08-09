@@ -44,21 +44,30 @@ knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 30),
 #registerDoParallel(cl=8,cores=4)
 ```
 
-```{r readData}
+We start by reading the data into 2 data frames, one for metadata from file 'vehicles.dat' and one for the actual data from 'vehicles.csv'. Each column is also given a data type while reading.
+
+```{r readData, echo=TRUE}
+# metadata file path
 metadataFilename = "./data/vehicles.dat"
+
+# vehicles data file path
 vehicledataFilename = "./data/vehicles.csv"
 
+# read metadata table from file
 metadata <- data.table::fread(metadataFilename, colClasses = c("integer", "character", "character"))
+
+# read vehicles data table from file
 vehicleData <- data.table::fread(vehicledataFilename, header = TRUE, 
     colClasses = c(
-        "integer", "character", "character","character",
-        "integer", "integer", "character", "character",
-        "character", "integer", "character", "double",
+        "numeric", "character", "character","character",
+        "numeric", "numeric", "character", "character",
+        "character", "character", "character", "numeric",
         "character", "character", "character","character",
         "character", "character", "character","character",
-        "character", "character", "character","double",
-        "double", "character"), na.strings = c("", "NA"))
+        "character", "character", "character","numeric",
+        "numeric", "character"), na.strings = c("", "NA"))
 ```
+
 # Data Description
 ```{r dataDesc, child="dataDescription.Rmd"}
 ```
@@ -67,22 +76,20 @@ vehicleData <- data.table::fread(vehicledataFilename, header = TRUE,
 ```{r dataPreProcess, child="dataPreProcessing.Rmd"}
 ```
 
-# Supervised Learning
-
-## Linear Regression
+# Linear Regression
 ```{r linearRegression, child="./algorithms/linearRegression.Rmd"}
 ```
 
-## Logistic Regression
-```{r logisticRegression, child="./algorithms/logisticRegression.Rmd"}
+## Map Visualization
+```{r mapViz, child="./algorithms/mapViz.Rmd"}
 ```
 
-# Unsupervised Learning
+<!-- # Unsupervised Learning -->
 
-## K Means Clustering
-```{r kMeansClustering, child="./algorithms/kMeansClustering.Rmd"}
-```
+<!-- ## K Means Clustering -->
+<!-- ```{r kMeansClustering, child="./algorithms/kMeansClustering.Rmd"} -->
+<!-- ``` -->
 
-## Hierarchical clustering
-```{r hierarchicalClustering, child="./algorithms/hierarchicalClustering.Rmd"}
-```
+<!-- ## Hierarchical clustering -->
+<!-- ```{r hierarchicalClustering, child="./algorithms/hierarchicalClustering.Rmd"} -->
+<!-- ``` -->
