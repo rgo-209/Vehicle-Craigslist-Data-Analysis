@@ -83,13 +83,3 @@ vehicleData <- data.table::fread(vehicledataFilename, header = TRUE,
 # Map Visualization
 ```{r mapViz, child="mapViz.Rmd"}
 ```
-
-<!-- # Unsupervised Learning -->
-
-<!-- ## K Means Clustering -->
-<!-- ```{r kMeansClustering, child="./algorithms/kMeansClustering.Rmd"} -->
-<!-- ``` -->
-
-<!-- ## Hierarchical clustering -->
-<!-- ```{r hierarchicalClustering, child="./algorithms/hierarchicalClustering.Rmd"} -->
-<!-- ``` -->

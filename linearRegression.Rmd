@@ -141,27 +141,49 @@ linreg_model_2_R2 <- R2(linreg_model_2_predictions, test_data$price)
 $R^2$ score of the predictions: `r toString(linreg_model_2_R2)`
 
 
+## Initial Findings
+
+Since the "Price" is a quantitative value, I decided to predict it using the most commonly used factors such as odometer reading and the year of the model. These 2 factors talk about the age of the car and it's usage and age and hence customers give a lot of importance to them. It can be observed that the errors were very high for this model. Hence, I decided to add more features and see how they perform. However, when I added other features, there wasn't a huge change in performance since the $R^2$ score did not improve a lot. Hence, the next step is to check what are the important features from the data.
 
 
 
-## Tuning
+<!-- ## Tuning -->
 
-```{r test}
-library(leaps)
-library(Metrics)
+<!-- ```{r linreg_model_best, echo=TRUE} -->
+<!-- library(leaps) -->
+<!-- library(Metrics) -->
 
-linreg_model_best <- regsubsets(price ~
-                       year+odometer+condition+fuel+transmission+drive+size+type+paint_color,
-                       data = train_data, nvmax = 10,really.big=T)
+<!-- linreg_model_best <- regsubsets(price ~ -->
+<!--                        year+odometer+manufacturer+odometer+condition+fuel+transmission+drive+size+type+paint_color, -->
+<!--                        data = train_data, nvmax = 5,really.big=T) -->
 
-```
+<!-- ``` -->
 
-```{r linreg_model_best_adjr2, fig.cap="\\label{fig:linreg_model_best_adjr2}Adjusted R^2 Contribution for Price+Odometer Speeds"} 
 
-#look at adj r^2
-plot(summary(linreg_model_best)$adjr2,xlab="Predictor Rank", ylab = "Adjusted R^2", main = "Price+Odometer", pch = 16)
-```
+<!-- ```{r linreg_model_bestsubset_rank, fig.cap="\\label{tab:linreg_model_bestsubset_rank}Best Subset Predictors Price" ,out.width="8in", out.height="5in", fig.align = 'center' }  -->
+<!-- kable(summary(linreg_model_best)$outmat, caption = "\\label{tab:linreg_model_bestsubset_rank}Best Subset Predictors DL" ) %>% kable_styling(latex_options="scale_down")%>% -->
+<!--   kable_styling(latex_options = "HOLD_position") -->
 
-## Conclusion
+<!-- ``` -->
 
-Since "Price" is a quantitative value, I decided to predict it using the most commonly looked at factors which are odometer reading and the year of the model since these 2 factors talk about the age of the car and it's usage and age. It can be observed that the errors were very high for this model.
+
+
+
+<!-- ```{r linreg_model_best_adjr2, fig.width=16, fig.height=4} -->
+
+<!-- feats <- c("year", "manufacturer", "odometer", "condition", "fuel", "transmission", "drive", "size", "type", "paint_color") -->
+
+<!-- png("tuning.png", width=600, height=300) -->
+
+<!-- #look at adj r^2 -->
+<!-- plot(summary(linreg_model_best)$adjr2,xlab="Predictor Rank", ylab = "Adjusted R2 Score", main = "All Features", pch = 16) -->
+
+<!-- a<-dev.off() -->
+<!-- ``` -->
+
+<!-- ```{r linreg_model_tuning, out.width="6in", out.height="3in", fig.align = 'center',  fig.cap="\\label{fig:linreg_model_best_adjr2}Adjusted R^2 Contribution for all features"} -->
+<!-- knitr::include_graphics("tuning.png", ) -->
+<!-- ``` -->
+
+<!-- According to the figure \ref{fig:linreg_model_best_adjr2}, it can be observed that the best features i.e. most informative features to use would be first 2: "year" and "odometer" and we have already developed a model based on them. Hence, we already have the -->
+
